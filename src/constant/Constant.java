@@ -19,7 +19,7 @@ public class Constant {
     public static final int racketWidth = 60;
     public static final int racketHeight = 20;
     // 球拍颜色
-    public static final Color RACKET_COLOR = Color.PINK;
+    public static final Color RACKET_COLOR = Color.GRAY;
     // 球拍每次移动距离
     public static final int moveLength = 10;
 

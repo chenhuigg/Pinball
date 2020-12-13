@@ -37,7 +37,7 @@ public class GameView extends Canvas {
         // 定时刷新任务
         timer = new Timer(100, event -> {
             // 小球移动
-            ball.moveBall(racketTop.getRacketX());
+            ball.moveBall(racketBotton.getRacketX());
             this.repaint();
         });
         timer.start();
@@ -45,7 +45,7 @@ public class GameView extends Canvas {
 
     @Override
     public void paint(Graphics g) {
-        if (!rule.isOver(racketTop.getRacketX())) { // 游戏进行
+        if (!rule.isOver(racketBottom.getRacketX())) { // 游戏进行
             paintGame(g);
         } else { // 游戏结束
             paintGameOver(g);
