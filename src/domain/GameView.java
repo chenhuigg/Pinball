@@ -29,7 +29,7 @@ public class GameView extends Canvas {
     public GameView(Ball ball, Racket racketTop, Racket racketBotton) {
         // 设置桌面
         this.setPreferredSize(new Dimension(TABLE_WIDTH, TABLE_HEIGHT));
-        this.rule = new Rule(ball);
+        this.rule = new Rule();
         this.ball = ball;
         this.racketTop = racketTop;
         this.racketBottom = racketBotton;
@@ -45,7 +45,7 @@ public class GameView extends Canvas {
 
     @Override
     public void paint(Graphics g) {
-        if (!rule.isOver(racketBottom.getRacketX())) { // 游戏进行
+        if (!rule.isOver(ball, racketBottom.getRacketX())) { // 游戏进行
             paintGame(g);
         } else { // 游戏结束
             paintGameOver(g);
