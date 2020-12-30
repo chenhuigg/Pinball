@@ -7,6 +7,8 @@ import constant.Constant;
  */
 public class Rule {
 
+    private int preSpeed = Constant.speedY;
+
     public Rule() {
     }
 
@@ -19,6 +21,18 @@ public class Rule {
         // 游戏结束
         if ((ball.getBallY() <= Constant.racketHeight || ball.getBallY() >= Constant.TABLE_HEIGHT - Constant.racketHeight - ball.getBallSize())
                 && (ball.getBallX() <= racketX - ball.getBallSize() || ball.getBallX() >= racketX + Constant.racketWidth)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 是否加分
+     * @param ball 球类
+     */
+    public boolean scoreAdd(Ball ball) {
+        if (preSpeed != ball.getSpeedY()) {
+            this.preSpeed = ball.getSpeedY();
             return true;
         }
         return false;
