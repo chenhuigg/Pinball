@@ -2,7 +2,6 @@ import constant.Constant;
 import domain.Ball;
 import domain.GameView;
 import domain.Racket;
-
 import java.awt.*;
 import java.awt.event.*;
 
@@ -31,22 +30,7 @@ public class GameApplication {
             }
         });
 
-        // 操作键盘
-        KeyListener listener = new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                int keyCode = e.getKeyCode();
-                if (keyCode == KeyEvent.VK_LEFT) { // 按左键，球拍左移动
-                    racketTop.moveLeft(moveLength);
-                    racketBottom.moveLeft(moveLength);
-                } else if (keyCode == KeyEvent.VK_RIGHT) { // 按右键，球拍右移动
-                    racketTop.moveRight(moveLength);
-                    racketBottom.moveRight(moveLength);
-                }
-            }
-        };
-
-        frame.addKeyListener(listener);
+        frame.addKeyListener(new GameKeyListener());
         frame.add(gameView);
         frame.pack();
         frame.setVisible(true);
@@ -54,6 +38,22 @@ public class GameApplication {
 
     public static void main(String[] args) {
         new GameApplication().init();
+    }
+
+    class GameKeyListener extends KeyAdapter {
+        @Override
+        public void keyPressed(KeyEvent e) {
+            int keyCode = e.getKeyCode();
+            if (keyCode == KeyEvent.VK_LEFT) { // 按左键，球拍左移动
+                racketTop.moveLeft(moveLength);
+                racketBottom.moveLeft(moveLength);
+            } else if (keyCode == KeyEvent.VK_RIGHT) { // 按右键，球拍右移动
+                racketTop.moveRight(moveLength);
+                racketBottom.moveRight(moveLength);
+            } else if (keyCode == KeyEvent.VK_SPACE) { // 按空格键，游戏继续和暂停
+                gameView.runStatus();
+            }
+        }
     }
 
 }

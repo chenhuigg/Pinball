@@ -26,9 +26,12 @@ public class GameView extends Canvas {
     // 声明定时器
     private Timer timer;
 
+    // 分数
+    private int score;
+
     public GameView(Ball ball, Racket racketTop, Racket racketBotton) {
         // 设置桌面
-        this.setPreferredSize(new Dimension(TABLE_WIDTH, TABLE_HEIGHT));
+        this.setPreferredSize(new Dimension(TABLE_WIDTH + Constant.TABLE_WIDTH_EXTEND, TABLE_HEIGHT));
         this.rule = new Rule();
         this.ball = ball;
         this.racketTop = racketTop;
@@ -38,6 +41,11 @@ public class GameView extends Canvas {
         timer = new Timer(100, event -> {
             // 小球移动
             ball.moveBall(racketBotton.getRacketX());
+            // 统计分数
+            if (rule.scoreAdd(ball)) {
+                score++;
+            }
+            // 绘制界面
             this.repaint();
         });
         timer.start();
@@ -68,6 +76,19 @@ public class GameView extends Canvas {
         // 绘制下球拍
         g.setColor(racketBottom.getColor());
         g.fillRect(racketBottom.getRacketX(), racketBottom.getRacketY(), racketBottom.getRacketWidth(), racketBottom.getRacketHeight());
+
+        // 绘制直线
+        g.setColor(Color.LIGHT_GRAY);
+        g.fillRect(452, 0, 2, 600);
+
+        // 绘制分数板
+        g.setColor(Color.LIGHT_GRAY);
+        g.fillRect(475, 130, 100,100);
+
+        // 绘制分数
+        g.setColor(Color.black);
+        g.setFont(new Font("隶书", Font.BOLD, 30));
+        g.drawString(Integer.toString(score), 515, 190);
     }
 
     /**
@@ -77,6 +98,30 @@ public class GameView extends Canvas {
         g.setColor(Color.BLUE);
         g.setFont(new Font("隶书", Font.BOLD, 30));
         g.drawString("游戏结束", 130, 300);
+
+        // 绘制直线
+        g.setColor(racketBottom.getColor());
+        g.fillRect(452, 0, 2, 600);
+
+        // 绘制分数板
+        g.setColor(Color.LIGHT_GRAY);
+        g.fillRect(475, 130, 100,100);
+
+        // 绘制分数
+        g.setColor(Color.black);
+        g.setFont(new Font("隶书", Font.BOLD, 30));
+        g.drawString(Integer.toString(score), 515, 190);
+    }
+
+    /**
+     * 游戏的开始和暂停
+     */
+    public void runStatus() {
+        if (timer.isRunning()) {
+            timer.stop();
+        } else {
+            timer.start();
+        }
     }
 
 }
